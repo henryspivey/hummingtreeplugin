@@ -48,7 +48,7 @@ function hummingtree_settings() {
 }
 
 
-add_action( 'wp_loaded', 'get_humming_id',99 );
+add_action( 'wp_footer', 'get_humming_id',99 );
 function get_humming_id() {
   echo '<script type="text/javascript" src="https://storage.googleapis.com/hummingtree-static-assets/modal_v1.js"></script>';
   $hummingid = get_option('hummingid');
