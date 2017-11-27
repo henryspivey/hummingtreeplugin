@@ -4,16 +4,15 @@
  * Plugin URI: http://hummingtree.co/
  * Description: This plugin adds the wrapper for HummingTree Wordpress sites
  * Version: 1.0.0
- * Author: HummingTree Co
+ * Author: Henry Spivey
  * License: GPL2
 */
 
-add_action('wp_head', 'hummingtree_styles');
+add_action('wp_head', 'hummingtree_styles_scripts');
 
-function hummingtree_styles() {
-  ?>
-  <link type="text/css" rel="stylesheet" href="https://storage.googleapis.com/hummingtree-static-assets/modal_v1.0.1.css" />
-  <?php  
+function hummingtree_styles_scripts() {
+  wp_enqueue_style('hummingtree-modal-css', 'https://storage.googleapis.com/hummingtree-static-assets/modal_v1.0.1.css');
+  wp_enqueue_script('hummingtree-modal-js', 'https://storage.googleapis.com/hummingtree-static-assets/modal_v1.js');
 }
 
 add_action('admin_menu', 'hummingtree_menu');
@@ -42,15 +41,12 @@ function hummingtree_settings_page() {
 }
 
 add_action( 'admin_init', 'hummingtree_settings' );
-
 function hummingtree_settings() {
   register_setting( 'hummingtree-settings-group', 'hummingid' );
 }
 
-
 add_action( 'wp_footer', 'get_humming_id',99 );
-function get_humming_id() {
-  echo '<script type="text/javascript" src="https://storage.googleapis.com/hummingtree-static-assets/modal_v1.js"></script>';
+function get_humming_id() {  
   $hummingid = get_option('hummingid');
   echo '<script type="text/javascript">
         hummingtree.init({ hostId: "'. $hummingid. '"});
